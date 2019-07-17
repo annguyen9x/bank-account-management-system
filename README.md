@@ -2,7 +2,7 @@
 
 Java Basic Application
 
-(1) Ứng dụng mô tả hệ thống ngân hàng, chưa kết nối Cơ sở dữ liệu (dữ liệu lưu tại ArrayList và File), với các chức năng cơ bản:
+(1) Ứng dụng quản lý hệ thống ngân hàng, chưa kết nối Cơ sở dữ liệu (dữ liệu lưu tại ArrayList và File), với các chức năng cơ bản:
 
 - Các chức năng tại quầy giao dịch của ngân hàng
 -	Chức năng trên Internet Banking
