@@ -35,16 +35,12 @@ public class Account extends Customer {
         super(c);
         this.soDu = sd;
         this.pin = pin;
-    }
-    
-    public Account(int soTK,  int pin, double sd) {
-        this.soTK = soTK;
-        this.soDu = sd;
-        this.pin = pin;
-    }
-    
-    public Account(int pin, double sd) {
         this.soTK = countSoTK++;
+    }
+
+    public Account(Customer c, int soTK, int pin, double sd) {
+        super(c);
+        this.soTK = soTK;
         this.soDu = sd;
         this.pin = pin;
     }
@@ -154,20 +150,20 @@ public class Account extends Customer {
 
     public void viewTransactionDiary() {
         System.out.println("\n\n\t\t------- Nhật ký GD -------");
-        for(Transaction t: transactionDiary){
+        for (Transaction t : transactionDiary) {
             System.out.println(t.toString());
         }
     }
 
     @Override
     public void execute(int n) {
-        switch(n){
+        switch (n) {
             case 1:
                 doWithdraw();
                 break;
             case 2:
                 doTransferMoney();
-                break;    
+                break;
             case 3:
                 doChangePin();
                 break;
@@ -224,5 +220,5 @@ public class Account extends Customer {
     public String toString() {
         return "Account{" + "soTK=" + soTK + ", pin=" + pin + ", soDu=" + soDu + '}';
     }
-    
+
 }

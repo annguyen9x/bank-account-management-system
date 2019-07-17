@@ -40,17 +40,12 @@ public abstract class Menu {
         Scanner sc = new Scanner(System.in);
         String lc;
         int numberChoose = 0;
-        while (true) {
-            System.out.println("Mời chọn mục: ");
-            lc = sc.nextLine();
-            try {
-                numberChoose = Integer.parseInt(lc);
-            } catch (NumberFormatException e) {
-                System.out.println("Lỗi: Phải nhập vào kiểu số nguyên !");
-            }
-            if (numberChoose > 0 && numberChoose <= luaChon.size()) {
-                break;
-            }
+        System.out.println("Mời chọn mục: ");
+        lc = sc.nextLine();
+        try {
+            numberChoose = Integer.parseInt(lc);
+        } catch (NumberFormatException e) {
+            System.out.println("Lỗi: Phải nhập vào kiểu số nguyên !");
         }
         return numberChoose;
     }
@@ -58,12 +53,14 @@ public abstract class Menu {
     public abstract void execute(int n);
 
     public void run() {
-        while (true) {
-            int lc = getSelected();
-            if (lc > luaChon.size()) {
-                break;
+        int lc = -1;
+        do {
+            lc = getSelected();
+            if (lc >= luaChon.size() || lc <= 0) {
+                System.out.println("Lựa chọn không đúng !\n\t\tVietcombank hẹn gặp lại quý khách !");
+                System.exit(0);
             }
             execute(lc);
-        }
+        } while (lc < luaChon.size() && lc > 0);
     }
 }

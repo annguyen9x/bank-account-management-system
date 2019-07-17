@@ -20,7 +20,7 @@ public class Customer extends Menu implements Comparable<Customer> {
     protected Date ngaySinh;
     protected static int count = 1000;
     static String[] mc = {"Internet Banking welcome !", "Đăng ký thêm tài khoản", "Xem danh sách tài khoản đã có", "Đăng nhập vào tài khoản", "Đổi mật khẩu đăng nhập thành viên"};
-    
+
     public Customer() {
         super(mc);
     }
@@ -34,6 +34,7 @@ public class Customer extends Menu implements Comparable<Customer> {
         matKhau = Integer.toString(cmnd);
         this.cmnd = cmnd;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+        dateFormat.setLenient(false);//validate of date
         try {
             ngaySinh = dateFormat.parse(ngS);
         } catch (ParseException e) {
@@ -47,12 +48,11 @@ public class Customer extends Menu implements Comparable<Customer> {
         }
         this.maKH = c.maKH;
         this.cmnd = c.cmnd;
-        this.matKhau = c.maKH;
+        this.matKhau = c.matKhau;
         this.ten = c.ten;
         this.ngaySinh = c.ngaySinh;
-
     }
-    
+
     public Customer(String maKH, String ht, String matKhau, int cmnd, String ngS) {
         if (maKH == null || ht == null || matKhau == null || cmnd < 0 || ngS == null) {
             throw new RuntimeException("Lỗi dữ liệu");
@@ -61,21 +61,23 @@ public class Customer extends Menu implements Comparable<Customer> {
         this.ten = ht;
         this.matKhau = matKhau;
         this.cmnd = cmnd;
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
+
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        dateFormat.setLenient(false);//validate of date
         try {
             ngaySinh = dateFormat.parse(ngS);
         } catch (ParseException e) {
             throw new RuntimeException("Ngày sinh không hợp lệ !");
         }
     }
-    
+
     @Override
     public void execute(int n) {
-        
+
     }
-    
-    public String toString(){
-        return "Mã KH: " + getMaKH() + " | Họ tên: " + getTen() + " | Mật khẩu: " + getMatKhau();
+
+    public String toString() {
+        return String.format("\n%-7s| %-16s| %-15s", getMaKH(), getTen(), getMatKhau());
     }
 
     @Override
