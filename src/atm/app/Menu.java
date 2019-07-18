@@ -26,13 +26,19 @@ public abstract class Menu {
         }
     }
 
-    public void display() {
-        System.out.println("\n\n\t\t\t" + luaChon.elementAt(0) + "\n");
-        System.out.println("-------- *** --------");
-        for (int i = 1; i < luaChon.size(); i++) {
-            System.out.println(i + "." + luaChon.get(i));
+    public void setMenu(String[] inLuaChon) {
+        for (String lc : inLuaChon) {
+            luaChon.add(lc);
         }
-        System.out.println("-------- *** --------");
+    }
+
+    public void display() {
+        System.out.println("\n\n\t\t\t" + luaChon.elementAt(1) + "\n");
+        System.out.println("-------- " + luaChon.elementAt(0) + " --------");
+        for (int i = 2; i < luaChon.size(); i++) {
+            System.out.println(i-1 + "." + luaChon.get(i));
+        }
+        System.out.println("---------- *** ----------");
     }
 
     public int getSelected() {
@@ -62,5 +68,13 @@ public abstract class Menu {
             }
             execute(lc);
         } while (lc < luaChon.size() && lc > 0);
+    }
+
+    public Vector<String> getLuaChon() {
+        return luaChon;
+    }
+
+    public void setLuaChon(Vector<String> luaChon) {
+        this.luaChon = luaChon;
     }
 }

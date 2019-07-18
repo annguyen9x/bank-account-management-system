@@ -28,7 +28,7 @@ public class Bank extends Menu {
 
     private static Vector<Account> aList = new Vector<Account>(20, 10);
     private static Vector<Customer> cList = new Vector<Customer>(20, 10);
-    static String[] mc = {"Vietcombank banking counters welcome !", "Đăng ký thành viên", "Đăng nhập thành viên", "Nộp tiền vào tài khoản", "Xem danh sách thành viên", "Kết thúc"};
+    static String[] mc = {"Menu 1", "Vietcombank banking counters welcome !", "Đăng ký thành viên", "Đăng nhập thành viên", "Nộp tiền vào tài khoản", "Xem danh sách thành viên", "Kết thúc"};
     Customer curenrCustomer;
     Account currentAccount;
 
@@ -47,10 +47,15 @@ public class Bank extends Menu {
             case 2:
                 try {
                     curenrCustomer = customerLogIn();
-                    System.out.println("Đăng nhập thành công, xin chào " + curenrCustomer.getTen() + " !");
-                    curenrCustomer.run();
+                    System.out.println(">>> Đăng nhập thành công, xin chào " + curenrCustomer.getTen() + " !");
                 } catch (Exception e) {
-                    System.out.println("Lỗi: " + e.getMessage());
+                    System.out.println("Lỗi đăng nhập: " + e.getMessage());
+                }
+                try{
+                    curenrCustomer.setMenu();
+                    curenrCustomer.run();
+                }catch(Exception e){
+                    System.out.println("Lỗi menu: " + e.toString());
                 }
                 break;
             case 3:

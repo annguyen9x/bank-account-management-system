@@ -19,10 +19,10 @@ public class Customer extends Menu implements Comparable<Customer> {
     protected int cmnd;
     protected Date ngaySinh;
     protected static int count = 1000;
-    static String[] mc = {"Internet Banking welcome !", "Đăng ký thêm tài khoản", "Xem danh sách tài khoản đã có", "Đăng nhập vào tài khoản", "Đổi mật khẩu đăng nhập thành viên"};
+    static String[] mc = {"Menu 2", "Vietcombank Internet Banking welcome !", "Đăng ký thêm tài khoản ngân hàng", "Xem danh sách tài khoản đang sở hữu", "Đăng nhập vào tài khoản ngân hàng", "Đổi mật khẩu đăng nhập thành viên"};
 
     public Customer() {
-        super(mc);
+        super();
     }
 
     public Customer(String ht, int cmnd, String ngS) {
@@ -70,10 +70,27 @@ public class Customer extends Menu implements Comparable<Customer> {
             throw new RuntimeException("Ngày sinh không hợp lệ !");
         }
     }
+    
+    public void setMenu(){
+        super.setMenu(mc);
+    }
 
     @Override
     public void execute(int n) {
-
+        switch(n){
+            case 1:
+                System.out.println("Đăng ký thêm tài khoản ngân hàng");
+                break;
+            case 2:
+                System.out.println("Xem danh sách tài khoản đang sở hữu");
+                break;
+            case 3:
+                System.out.println("Đăng nhập vào tài khoản ngân hàng");
+                break;
+            case 4:
+                System.out.println("Đổi mật khẩu đăng nhập thành viên");
+                break;
+        }
     }
 
     public String toString() {
