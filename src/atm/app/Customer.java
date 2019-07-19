@@ -83,7 +83,7 @@ public class Customer extends Menu implements Comparable<Customer> {
                 System.out.println("Đăng ký thêm tài khoản ngân hàng");
                 break;
             case 2:
-                System.out.println("Xem danh sách tài khoản đang sở hữu");
+                showAccountOfCustomer(this);
                 break;
             case 3:
                 System.out.println("Đăng nhập vào tài khoản ngân hàng");
@@ -92,12 +92,29 @@ public class Customer extends Menu implements Comparable<Customer> {
                 System.out.println("Đổi mật khẩu đăng nhập thành viên");
                 break;
             case 5:
-                System.out.println("Quay lại Menu 1");
+                Bank b = new Bank(Bank.mc);
+                b.run();
                 break;
             case 6:
                 System.out.println("Thoát");
                 break;
         }
+    }
+    
+    public void showAccountOfCustomer(Customer c){
+        boolean check = false;
+        System.out.println("\n------- Các số tài khoản của \""+ c.ten + "\" -------");
+        System.out.printf("%-7s|  %-16s| %-15s", "Mã KH", "Họ tên", "Số tài khoản");
+        for(Account a: Bank.getaList()){
+            if( a.maKH.equals(c.maKH) ){
+                 System.out.printf("\n%-7s|  %-16s| %-15s",a.maKH,a.ten,a.getSoTK());
+                 check = true;
+            }
+        }
+        if( check == false ){
+            System.out.println("Danh sách rỗng !");
+        }
+        System.out.println("\n\t --------- *** ---------");
     }
 
     @Override
