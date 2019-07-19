@@ -19,7 +19,7 @@ public class Customer extends Menu implements Comparable<Customer> {
     protected int cmnd;
     protected Date ngaySinh;
     protected static int count = 1000;
-    static String[] mc = {"Menu 2", "Vietcombank Internet Banking welcome !", "Đăng ký thêm tài khoản ngân hàng", "Xem danh sách tài khoản đang sở hữu", "Đăng nhập vào tài khoản ngân hàng", "Đổi mật khẩu đăng nhập thành viên"};
+    static String[] mc = {"Menu 2", "Vietcombank Internet Banking welcome !", "Đăng ký thêm tài khoản ngân hàng", "Xem danh sách tài khoản đang sở hữu", "Đăng nhập vào tài khoản ngân hàng", "Đổi mật khẩu đăng nhập thành viên", "Quay lại Menu 1", "Thoát"};
 
     public Customer() {
         super();
@@ -91,9 +91,16 @@ public class Customer extends Menu implements Comparable<Customer> {
             case 4:
                 System.out.println("Đổi mật khẩu đăng nhập thành viên");
                 break;
+            case 5:
+                System.out.println("Quay lại Menu 1");
+                break;
+            case 6:
+                System.out.println("Thoát");
+                break;
         }
     }
 
+    @Override
     public String toString() {
         return String.format("\n%-7s| %-16s| %-15s", getMaKH(), getTen(), getMatKhau());
     }
