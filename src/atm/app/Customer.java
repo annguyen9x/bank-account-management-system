@@ -29,14 +29,15 @@ public class Customer extends Menu implements Comparable<Customer> {
         if (ht == null || cmnd < 0 || ngS == null) {
             throw new RuntimeException("Lỗi dữ liệu");
         }
-        ten = ht;
-        maKH = "C" + count++;
-        matKhau = Integer.toString(cmnd);
-        this.cmnd = cmnd;
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy");
         dateFormat.setLenient(false);//validate of date
         try {
             ngaySinh = dateFormat.parse(ngS);
+            ten = ht;
+            maKH = "C" + count++;
+            matKhau = Integer.toString(cmnd);
+            this.cmnd = cmnd;
         } catch (ParseException e) {
             throw new RuntimeException("Ngày sinh không hợp lệ !");
         }
@@ -57,27 +58,27 @@ public class Customer extends Menu implements Comparable<Customer> {
         if (maKH == null || ht == null || matKhau == null || cmnd < 0 || ngS == null) {
             throw new RuntimeException("Lỗi dữ liệu");
         }
-        this.maKH = maKH;
-        this.ten = ht;
-        this.matKhau = matKhau;
-        this.cmnd = cmnd;
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         dateFormat.setLenient(false);//validate of date
         try {
             ngaySinh = dateFormat.parse(ngS);
+            this.maKH = maKH;
+            this.ten = ht;
+            this.matKhau = matKhau;
+            this.cmnd = cmnd;
         } catch (ParseException e) {
             throw new RuntimeException("Ngày sinh không hợp lệ !");
         }
     }
-    
-    public void setMenu(){
+
+    public void setMenu() {
         super.setMenu(mc);
     }
 
     @Override
     public void execute(int n) {
-        switch(n){
+        switch (n) {
             case 1:
                 System.out.println("Đăng ký thêm tài khoản ngân hàng");
                 break;
