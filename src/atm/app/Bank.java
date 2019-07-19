@@ -36,6 +36,10 @@ public class Bank extends Menu {
         super(mc);
         loadData("account.txt");
     }
+    
+    public Bank(String[] mang) {
+        super(mc);
+    }
 
     @Override
     public void execute(int n) {
@@ -240,4 +244,20 @@ public class Bank extends Menu {
         return null;
     }
 
+    public static Vector<Account> getaList() {
+        return aList;
+    }
+
+    public static void setaList(Vector<Account> aList) {
+        Bank.aList = aList;
+    }
+
+    public static Vector<Customer> getcList() {
+        return cList;
+    }
+
+    public static void setcList(Vector<Customer> cList) {
+        Bank.cList = cList;
+    }
+    
 }
