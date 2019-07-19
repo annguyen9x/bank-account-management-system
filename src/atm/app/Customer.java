@@ -7,6 +7,7 @@ package atm.app;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 
 /**
@@ -83,6 +84,7 @@ public class Customer extends Menu implements Comparable<Customer> {
                 break;
             case 2:
                 System.out.println("Xem danh sách tài khoản đang sở hữu");
+                showAccountOfCustomer(this);
                 break;
             case 3:
                 System.out.println("Đăng nhập vào tài khoản ngân hàng");
@@ -95,6 +97,22 @@ public class Customer extends Menu implements Comparable<Customer> {
 
     public String toString() {
         return String.format("\n%-7s| %-16s| %-15s", getMaKH(), getTen(), getMatKhau());
+    }
+    
+    public void showAccountOfCustomer(Customer c){
+        boolean check = false;
+        System.out.println("\n------- Các số tài khoản của \""+ c.ten + "\" -------");
+        System.out.printf("%-7s| %-16s| %-15s", "Mã KH", "Họ tên", "Số tài khoản");
+        for(Account a: Bank.getaList()){
+            if( a.maKH.equals(c.maKH) ){
+                 System.out.printf("\n%-7s| %-16s| %-15s",a.maKH,a.ten,a.getSoTK());
+                 check = true;
+            }
+        }
+        if( check == false ){
+            System.out.println("Danh sách rỗng !");
+        }
+        System.out.println("\n\t --------- *** ---------");
     }
 
     @Override

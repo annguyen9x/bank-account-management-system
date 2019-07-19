@@ -240,4 +240,19 @@ public class Bank extends Menu {
         return null;
     }
 
+    public static Vector<Account> getaList() {
+        return aList;
+    }
+
+    public static void setaList(Vector<Account> aList) {
+        Bank.aList = aList;
+    }
+
+    public static Vector<Customer> getcList() {
+        return cList;
+    }
+
+    public static void setcList(Vector<Customer> cList) {
+        Bank.cList = cList;
+    }
 }

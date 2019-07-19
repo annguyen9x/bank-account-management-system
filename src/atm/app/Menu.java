@@ -62,7 +62,7 @@ public abstract class Menu {
         int lc = -1;
         do {
             lc = getSelected();
-            if (lc >= luaChon.size() || lc <= 0) {
+            if (lc >= luaChon.size() -1 || lc <= 0) {
                 System.out.println("Lựa chọn không đúng !\n\t\tVietcombank hẹn gặp lại quý khách !");
                 System.exit(0);
             }
