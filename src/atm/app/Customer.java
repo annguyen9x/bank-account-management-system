@@ -104,10 +104,10 @@ public class Customer extends Menu implements Comparable<Customer> {
     public void showAccountOfCustomer(Customer c){
         boolean check = false;
         System.out.println("\n------- Các số tài khoản của \""+ c.ten + "\" -------");
-        System.out.printf("%-7s| %-16s| %-15s", "Mã KH", "Họ tên", "Số tài khoản");
+        System.out.printf("%-7s|  %-16s| %-15s", "Mã KH", "Họ tên", "Số tài khoản");
         for(Account a: Bank.getaList()){
             if( a.maKH.equals(c.maKH) ){
-                 System.out.printf("\n%-7s| %-16s| %-15s",a.maKH,a.ten,a.getSoTK());
+                 System.out.printf("\n%-7s|  %-16s| %-15s",a.maKH,a.ten,a.getSoTK());
                  check = true;
             }
         }
