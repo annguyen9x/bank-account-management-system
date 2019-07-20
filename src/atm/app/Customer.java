@@ -98,8 +98,8 @@ public class Customer extends Menu implements Comparable<Customer> {
                 b.run();
                 break;
             case 6:
-                System.out.println("Thoát");
-                break;
+               System.out.println("\t\tVietcombank Internet Banking hẹn gặp lại quý khách !");
+                System.exit(0);
         }
     }
     
@@ -107,8 +107,8 @@ public class Customer extends Menu implements Comparable<Customer> {
         double soDu = 0;
         int pin = 0;
         Scanner sc = new Scanner(System.in);
-        System.out.println("\n------- Thêm tài kho?n ngân hàng -------");
-        System.out.println("Khai báo số du: ");
+        System.out.println("\n------- Thêm tài khoản ngân hàng -------");
+        System.out.println("Khai báo số dư: ");
         try{
             soDu = Double.parseDouble(sc.nextLine());
             Random rd = new Random();
@@ -125,6 +125,7 @@ public class Customer extends Menu implements Comparable<Customer> {
     public Account CreateAcountOfCustomer(Customer c, int pin, double soDu){
         Account a = new Account(c,soDu, pin);
         Bank.addAcountInaList(a);
+        Bank.saveData("account.txt");
         return a;
     }
     

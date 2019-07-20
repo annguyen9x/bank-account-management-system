@@ -176,13 +176,14 @@ public class Bank extends Menu {
         System.out.println("\n\t ------- *** -------");
     }
 
-    public void saveData(String path) {
+    public static void saveData(String path) {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         File fileName = new File(path);
         try {
             fileName.createNewFile();
             FileWriter fw = new FileWriter(fileName);
             BufferedWriter bw = new BufferedWriter(fw);
+            Collections.sort(aList);
             for (Account a : aList) {
                 String dateOfBirth = dateFormat.format(a.getNgaySinh());
                 bw.write(a.getMaKH() + "::" + a.getTen() + "::" + a.getMatKhau() + "::" + a.getCmnd() + "::" + dateOfBirth
