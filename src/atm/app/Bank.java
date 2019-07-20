@@ -243,7 +243,10 @@ public class Bank extends Menu {
         }
         return null;
     }
-
+    
+    public static void addAcountInaList(Account a){
+        aList.add(a);
+    }
     public static Vector<Account> getaList() {
         return aList;
     }

@@ -8,6 +8,8 @@ package atm.app;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  *
@@ -80,7 +82,7 @@ public class Customer extends Menu implements Comparable<Customer> {
     public void execute(int n) {
         switch (n) {
             case 1:
-                System.out.println("Đăng ký thêm tài khoản ngân hàng");
+                doCreateAcountOfCustomer();
                 break;
             case 2:
                 showAccountOfCustomer(this);
@@ -99,6 +101,31 @@ public class Customer extends Menu implements Comparable<Customer> {
                 System.out.println("Thoát");
                 break;
         }
+    }
+    
+     public void doCreateAcountOfCustomer(){
+        double soDu = 0;
+        int pin = 0;
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n------- Thêm tài kho?n ngân hàng -------");
+        System.out.println("Khai báo số du: ");
+        try{
+            soDu = Double.parseDouble(sc.nextLine());
+            Random rd = new Random();
+            pin = 100000 + rd.nextInt((900000-100000) + 1);
+            Account a = CreateAcountOfCustomer(this, pin, soDu);
+            System.out.println("\n>>> Thêm tài khoản thành công !");
+            System.out.println("Số tài khoản: " + a.getSoTK() + "\nPin mặc định: " + a.getPin());
+            System.out.println("\t------- *** -------");
+        }catch(NumberFormatException e){
+            System.out.println("Lỗi: số dư phải là kiểu số !");
+        }
+    }
+    
+    public Account CreateAcountOfCustomer(Customer c, int pin, double soDu){
+        Account a = new Account(c,soDu, pin);
+        Bank.addAcountInaList(a);
+        return a;
     }
     
     public void showAccountOfCustomer(Customer c){
