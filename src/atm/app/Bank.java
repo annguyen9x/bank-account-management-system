@@ -36,7 +36,7 @@ public class Bank extends Menu {
         super(mc);
         loadData("account.txt");
     }
-    
+
     public Bank(String[] mang) {
         super(mc);
     }
@@ -55,10 +55,10 @@ public class Bank extends Menu {
                 } catch (Exception e) {
                     System.out.println("Lỗi đăng nhập: " + e.getMessage());
                 }
-                try{
+                try {
                     curenrCustomer.setMenu();
                     curenrCustomer.run();
-                }catch(Exception e){
+                } catch (Exception e) {
                     System.out.println("Lỗi menu: " + e.toString());
                 }
                 break;
@@ -169,8 +169,13 @@ public class Bank extends Menu {
         } else {
             Collections.sort(cList);
             System.out.printf("%-7s| %-16s| %-15s", "Mã KH", "Họ tên", "Mật khẩu");
-            for (Customer c : cList) {
-                System.out.print(c);
+            for (int i = 0; i < cList.size(); i++) {
+                if (i < cList.size() - 1) {
+                    if ((cList.get(i).getMaKH()).equals(cList.get(i + 1).getMaKH())) {
+                        continue;
+                    }
+                }
+                System.out.print(cList.get(i));
             }
         }
         System.out.println("\n\t ------- *** -------");
@@ -201,7 +206,6 @@ public class Bank extends Menu {
             FileReader fr = new FileReader(path);
             BufferedReader br = new BufferedReader(fr);
             String line = "";
-
             while ((line = br.readLine()) != null) {
                 String[] array = line.trim().split("::");
                 Customer c = createCustomer(array);
@@ -232,7 +236,10 @@ public class Bank extends Menu {
         int pin = Integer.parseInt(array[6]);
         double soDu = Double.parseDouble(array[7]);
         int count = soTK;
-        Account.setCountSoTK(++count);
+        //Đảm bảo CountSoTK cuối cùng khi load xong file là lớn nhất vì file sắp xếp theo tên Khách hàng
+        if ( count >= Account.getCountSoTK() ) {
+            Account.setCountSoTK(++count);
+        }
         return new Account(c, soTK, pin, soDu);
     }
 
@@ -244,10 +251,11 @@ public class Bank extends Menu {
         }
         return null;
     }
-    
-    public static void addAcountInaList(Account a){
+
+    public static void addAcountInaList(Account a) {
         aList.add(a);
     }
+
     public static Vector<Account> getaList() {
         return aList;
     }
@@ -263,5 +271,5 @@ public class Bank extends Menu {
     public static void setcList(Vector<Customer> cList) {
         Bank.cList = cList;
     }
-    
+
 }
