@@ -21,12 +21,14 @@ public abstract class Menu {
     }
 
     public Menu(String[] inLuaChon) {
+        luaChon.clear();
         for (String lc : inLuaChon) {
             luaChon.add(lc);
         }
     }
 
     public void setMenu(String[] inLuaChon) {
+        luaChon.clear();
         for (String lc : inLuaChon) {
             luaChon.add(lc);
         }
@@ -60,14 +62,14 @@ public abstract class Menu {
 
     public void run() {
         int lc = -1;
-            do {
-                lc = getSelected();
-                if (lc > luaChon.size() - 2 || lc <= 0) {
-                    System.out.println("Lựa chọn không đúng !\n\t\tVietcombank hẹn gặp lại quý khách !");
-                    System.exit(0);
-                }
-                execute(lc);
-            } while (lc <= luaChon.size() - 2 && lc > 0);
+        do {
+            lc = getSelected();
+            if (lc > luaChon.size() - 2 || lc <= 0) {
+                System.out.println("Lựa chọn không đúng !\n\t\tVietcombank hẹn gặp lại quý khách !");
+                System.exit(0);
+            }
+            execute(lc);
+        } while (lc <= luaChon.size() - 2 && lc > 0);
     }
 
     public Vector<String> getLuaChon() {
