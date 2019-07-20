@@ -236,8 +236,8 @@ public class Bank extends Menu {
         int pin = Integer.parseInt(array[6]);
         double soDu = Double.parseDouble(array[7]);
         int count = soTK;
-        //Đảm bảo CountSoTK cuối cùng khi load xong file là lớn nhất vì file sắp xếp theo tên Khách hàng
-        if ( count >= Account.getCountSoTK() ) {
+        //Đảm bảo CountSoTK cuối cùng khi load xong file là lớn nhất để không bị trùng, vì file sắp xếp theo tên Khách hàng
+        if (count >= Account.getCountSoTK()) {
             Account.setCountSoTK(++count);
         }
         return new Account(c, soTK, pin, soDu);

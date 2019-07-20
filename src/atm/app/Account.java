@@ -18,7 +18,7 @@ public class Account extends Customer {
     private Double soDu = 100D;
     private static int countSoTK = 10000;
     static Vector<Transaction> transactionDiary = new Vector<Transaction>(10, 5);
-    String menu[] = {"Giao dịch tại ATM Vietcombank", "Rút tiền", "Chuyển tiền", "Đổi pin", "Xem số dư", "Xem nhật ký giao dịch"};
+    String menu[] = {"Menu 3", "Giao dịch tại ATM Vietcombank", "Rút tiền", "Chuyển tiền", "Đổi pin", "Xem số dư", "Xem nhật ký giao dịch", "Thoát"};
 
     public Account() {
         super();
@@ -52,14 +52,26 @@ public class Account extends Customer {
         return null;
     }
 
+    @Override
+    public void setMenu() {
+        super.setMenu(menu);
+    }
+
     public void doWithdraw() {
         Scanner sc = new Scanner(System.in);
         System.out.println("\n\t\t------- Rút tiền -------");
         System.out.println("Số tiền cần rút: ");
-        Double st = sc.nextDouble();
+        double st = 0D;
+        try {
+            st = Double.parseDouble(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Lỗi: nhập sai kiểu số !");
+            return;//call menu
+        }
         String mt = "Rút tiền mặt tại ATM";
         try {
             withdraw(st, mt);
+            System.out.println(">>> Rút tiền thành công !");
         } catch (Exception e) {
             System.out.println("Lỗi: " + e.getMessage());
         }
@@ -69,25 +81,30 @@ public class Account extends Customer {
         if (sotien > this.soDu) {
             throw new RuntimeException("Số dư không đủ để rút tiền");
         }
-        if (sotien <= soDu) {
-            transactionDiary.add(new Transaction(this, sotien, "Rút Tiền", mota));
-            return this.soDu -= sotien;
-        }
-        return soDu;
+        transactionDiary.add(new Transaction(this, sotien, "Rút Tiền", mota));
+        return this.soDu -= sotien;
     }
 
     public void doTransferMoney() {
+        int stk = 0;
+        double st = 0D;
         Scanner sc = new Scanner(System.in);
         System.out.println("\n\t\t------- Chuyển tiền -------");
-        System.out.println("Số tài khoản nhận tiền: ");
-        int stk = sc.nextInt();
-        Account a = Bank.getAccount(stk);
-        System.out.println("Số tiền cần chuyển: ");
-        Double st = sc.nextDouble();
+        try {
+            System.out.println("Số tài khoản nhận tiền: ");
+            stk = Integer.parseInt(sc.nextLine());
+            System.out.println("Số tiền cần chuyển: ");
+            st = Double.parseDouble(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Lỗi: nhập sai kiểu số !");
+            return;//call menu
+        }
         System.out.println("Nội dung chuyển tiền: ");
         String mt = sc.nextLine();
+        Account a = Bank.getAccount(stk);
         try {
-            transferMoney(a, st, this.getTen() + " chuyển tiền cho " + a.getTen() + ", nội dung: " + mt);
+            transferMoney(a, st, this.getSoTK()+ " chuyển tiền cho " + a.getSoTK()+ ", nội dung: " + mt);
+            System.out.println(">>> Chuyển khoản thành công !");
         } catch (Exception e) {
             System.out.println("Lỗi: " + e.getMessage());
         }
@@ -111,12 +128,19 @@ public class Account extends Customer {
     }
 
     public void doChangePin() {
+        int pin = 0;
+        int pin2 = 0;
         Scanner sc = new Scanner(System.in);
         System.out.println("\n\t\t------- Đổi Pin -------");
-        System.out.println("Nhập pin mới: ");
-        int pin = sc.nextInt();
-        System.out.println("Nhập lại pin mới: ");
-        int pin2 = sc.nextInt();
+        try {
+            System.out.println("Nhập pin mới: ");
+            pin = Integer.parseInt(sc.nextLine());
+            System.out.println("Nhập lại pin mới: ");
+            pin2 = Integer.parseInt(sc.nextLine());
+        } catch (NumberFormatException e) {
+            System.out.println("Lỗi: Nhập sai kiểu số !");
+            return;//call menu
+        }
         String mota = "Đổi pin tại ATM";
         if (pin < 100000) {
             System.out.println("Pin phải có 6 chữ số !");
@@ -128,8 +152,10 @@ public class Account extends Customer {
         }
         try {
             changePin(pin, mota);
+            System.out.println(">>> Đổi pin thành công !");
         } catch (Exception e) {
             System.out.println("Lỗi: " + e.getMessage());
+            return;
         }
 
     }
@@ -144,14 +170,21 @@ public class Account extends Customer {
 
     public void checkBalance() {
         System.out.println("\n\n\t\t------- Kiểm tra số dư -------");
-        this.getSoDu();
+         System.out.printf("%-10s| %-10s","Tài khoản","Số dư");
+        System.out.printf("\n%-10d| %-10f", this.getSoTK(), this.getSoDu());
         transactionDiary.add(new Transaction(this, 0, "KTSD", "Kiểm tra số dư tại ATM"));
     }
 
     public void viewTransactionDiary() {
-        System.out.println("\n\n\t\t------- Nhật ký GD -------");
+        System.out.println("\n------- Nhật ký GD của tài khoản \"" + this.soTK + "\" -------");
+        System.out.printf("\n%-5s| %-28s| %-8s| %-15s| %-15s| %-25s","ID", "Thời gian", "Số TK", "Số tiền", "Loại GD", "Mô tả");
         for (Transaction t : transactionDiary) {
-            System.out.println(t.toString());
+            if (t.getAcc().getSoTK() == this.getSoTK()) {
+                System.out.print(t.toString());
+            }
+        }
+        if(transactionDiary.size() == 0 ){
+            System.out.println("\nBạn chưa có giao dịch nào trên hệ thống ATM !");
         }
     }
 
@@ -173,6 +206,9 @@ public class Account extends Customer {
             case 5:
                 viewTransactionDiary();
                 break;
+            case 6:
+                System.out.println("\t\tVietcombank ATM hẹn gặp lại quý khách !");
+                System.exit(0);
         }
     }
 
@@ -220,6 +256,5 @@ public class Account extends Customer {
     public String toString() {
         return "Account{" + "soTK=" + soTK + ", pin=" + pin + ", soDu=" + soDu + '}';
     }
-    
-    
+
 }

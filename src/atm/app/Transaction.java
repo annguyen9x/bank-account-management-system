@@ -11,7 +11,7 @@ import java.util.Date;
  *
  * @author An Nguyen
  */
-public class Transaction{
+public class Transaction {
 
     private int logID;
     private Account acc;
@@ -35,7 +35,7 @@ public class Transaction{
 
     @Override
     public String toString() {
-        return "LogID= " + logID + ", thời gian= " + thoiGian + ", tài khoản=" + acc.getSoTK() + ", số tiền= " + soTien + ", loại GD= " + loaiGD + ", mô tả= " + moTa;
+        return String.format("\n%-5d| %-28s| %-8d| %-15f| %-15s| %-25s",logID, thoiGian.toString(), acc.getSoTK(), soTien, loaiGD, moTa);
     }
 
     public int getLogID() {
@@ -93,5 +93,5 @@ public class Transaction{
     public static void setCount(int count) {
         Transaction.count = count;
     }
-    
+
 }
